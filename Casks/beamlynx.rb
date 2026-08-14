@@ -3,11 +3,11 @@
 # Homebrew on Linux does not install GUI .app bundles this way, so this file
 # has no bearing on the Arch/AUR path (see packaging/aur/PKGBUILD).
 cask "beamlynx" do
-  version "0.1.19"
+  version "0.2.2"
   # `brew bump-cask-pr` (or a hand run of `shasum -a 256`) recomputes this
   # against the real dmg -- update this by hand per release until the tap
   # repo's bump automation exists.
-  sha256 "ee4576bf1f4bbac44313b62ecf5e01e1619f27364ab79abbc6d8ca4895d1f305"
+  sha256 "91328ce0bc32c853fed542d0b622fd3d974bdaa679654a062e747897b4dea68c"
 
   url "https://github.com/beamlynx/beamlynx-desktop/releases/download/#{version}/beamlynx-#{version}.dmg"
   name "beamlynx"
@@ -33,16 +33,14 @@ cask "beamlynx" do
   # newer-than-catalog copy.
   auto_updates true
 
-  # release.yml builds unsigned/unnotarized (see SIGNING.md). Homebrew Cask
-  # quarantines downloads by default, so Gatekeeper may block first launch
-  # until the user right-clicks > Open, or the app is code-signed &
-  # notarized upstream. Confirmed only in theory here -- no Mac was
-  # available to test this cask end-to-end before drafting it.
-  caveats <<~EOS
-    This build is unsigned. If macOS Gatekeeper blocks the first launch,
-    right-click beamlynx.app in Finder and choose Open, or run:
-      xattr -dr com.apple.quarantine "#{appdir}/beamlynx.app"
-  EOS
+  # As of 0.2.2, release.yml signs (Developer ID Application cert) and
+  # notarizes (notarytool) the mac build -- see SIGNING.md. Homebrew Cask
+  # still quarantines downloads by default, but a signed+notarized app
+  # passes Gatekeeper's assessment on that quarantine flag normally, so no
+  # caveat/manual-open step should be needed anymore. Not yet confirmed on
+  # a real, previously-untrusted Mac -- if Gatekeeper still blocks first
+  # launch for some user, that's a real signal worth investigating rather
+  # than assuming this comment is right.
 
   zap trash: [
     "~/Library/Application Support/beamlynx",

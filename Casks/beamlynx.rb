@@ -3,11 +3,11 @@
 # Homebrew on Linux does not install GUI .app bundles this way, so this file
 # has no bearing on the Arch/AUR path (see packaging/aur/PKGBUILD).
 cask "beamlynx" do
-  version "0.31.0"
+  version "0.32.0"
   # `brew bump-cask-pr` (or a hand run of `shasum -a 256`) recomputes this
   # against the real dmg -- update this by hand per release until the tap
   # repo's bump automation exists.
-  sha256 "60ab9275708819f3c9a5feabed62cc14f2c1bdee94a2990eaf34c6b7a5a16b1b"
+  sha256 "f3b1a44a5dcc66c4f2e62f4b3c636fa2ae12a24a27b3c377ff3630c55dc3808d"
 
   url "https://github.com/beamlynx/beamlynx-desktop/releases/download/#{version}/beamlynx-#{version}.dmg"
   name "Beamlynx"
